@@ -1,0 +1,83 @@
+// <template>
+//   <div>
+//        <div class="hello">
+//           <img :src="logo" alt="" width="50%">
+//        </div>
+//   </div>
+// </template>
+
+// <script>
+// export default {
+//   name: 'passport',
+//   data () {
+//     return {
+//      logo:'../../common/images/loading.png'
+//     }
+//   },
+//   created(){
+//     var code = this.getChannge('code');
+//     this.wxLogin(code, localStorage.getItem('channel'));
+//   },
+//   methods:{
+//     //截取URL参数
+//     getChannge:function(name){
+//       return decodeURIComponent(
+//       (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
+//     },
+//      //调用客乐芙微信登陆接口
+//      wxLogin(code, channel){
+//          this.axios({
+//             method:"post",
+//             url:"/yangjian/mem/wxlogin",
+//             data:{"wxcode": code,
+//                  "channel": channel
+//                  }
+//          })  
+//         .then(res => {
+//           debugger
+//           //当code=101时，前端需要存储openId，并跳回登陆页
+//           if (res.data.code == "101") { 
+//             //存储OPNID
+//             localStorage.setItem("openId", res.data.result.openId);
+//             //记录已授权
+//             localStorage.setItem("isWxShouQuan_"+channel, 1);
+//             //跳回登录页
+//             window.location.href= "/login?channel="+ channel+"&backurl="+ localStorage.getItem("backurl");
+//           } else if (res.data.code=="100"){
+//               //缓存登陆TOKEN
+//               localStorage.setItem(channel+"_loginToken", res.data.result.loginToken); //token
+//               //跳回着落页
+//               //判断  backurl 是否带有 ？
+//               if(localStorage.getItem("backurl").indexOf('?')!= -1) {
+//                  window.location.href = localStorage.getItem("backurl")+"&token="+res.data.result.loginToken;
+//               } else {
+//                  window.location.href = localStorage.getItem("backurl")+"?token="+res.data.result.loginToken;
+//               }
+//           } else {
+//             alert(res.data.msg);
+//           }
+//         }).catch(error => {
+//           console.log(error);
+//         });
+//      }
+    
+//   }
+// }
+// </script>
+
+// <!-- Add "scoped" attribute to limit CSS to this component only -->
+// <style scoped lang="scss">
+
+//     .hello{
+//         height:100vh;
+// 				display: flex;
+// 				justify-content: center;
+// 				align-items: center; 
+//        img{
+//          margin-top: -20%;
+//        }    
+//     }
+  
+       
+  
+// </style>
